@@ -1,0 +1,6 @@
+#ifndef USB_DESCRIPTORS_H_
+#define USB_DESCRIPTORS_H_
+
+#define ZWO_HID_REPORT_PAYLOAD_SIZE 15
+
+#endif

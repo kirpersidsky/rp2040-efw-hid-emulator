@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zwo-efw-emulator.local/schema/efw-capture-1.json",
+  "title": "ZWO EFW HID API capture",
+  "description": "Host HID API observations. This schema does not describe USB wire packets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "collector_version",
+    "captured_at_utc",
+    "platform",
+    "hid_api",
+    "device",
+    "hid_descriptor",
+    "operations"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "collector_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "captured_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC RFC 3339 timestamp."
+    },
+    "platform": {
+      "$ref": "#/$defs/platform"
+    },
+    "hid_api": {
+      "type": "string",
+      "minLength": 1,
+      "description": "For example, an OS API/backend name and version."
+    },
+    "device": {
+      "$ref": "#/$defs/device"
+    },
+    "hid_descriptor": {
+      "$ref": "#/$defs/hid_descriptor"
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operation"
+      }
+    }
+  },
+  "$defs": {
+    "hex_bytes": {
+      "type": "string",
+      "pattern": "^(?:[0-9A-Fa-f]{2})(?: [0-9A-Fa-f]{2})*$",
+      "description": "Upper- or lowercase hexadecimal byte pairs separated by one ASCII space."
+    },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["os", "os_version", "cpu_architecture"],
+      "properties": {
+        "os": { "type": "string", "minLength": 1 },
+        "os_version": { "type": "string", "minLength": 1 },
+        "cpu_architecture": { "type": "string", "minLength": 1 }
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vid", "pid"],
+      "properties": {
+        "vid": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{4}$",
+          "description": "Four hexadecimal digits, without 0x."
+        },
+        "pid": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{4}$",
+          "description": "Four hexadecimal digits, without 0x."
+        },
+        "manufacturer": { "type": "string" },
+        "product": { "type": "string" },
+        "transport": { "type": "string" }
+      },
+      "description": "No serial-number property is allowed in the default capture schema."
+    },
+    "hid_descriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["length", "sha256", "raw_bytes_hex"],
+      "properties": {
+        "length": { "type": "integer", "minimum": 0 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{64}$"
+        },
+        "raw_bytes_hex": { "$ref": "#/$defs/hex_bytes" }
+      }
+    },
+    "api_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["success", "error_code", "error_domain"],
+      "properties": {
+        "success": { "type": "boolean" },
+        "error_code": {
+          "type": ["integer", "string", "null"],
+          "description": "Native API result or error code; null when not supplied by the API."
+        },
+        "error_domain": {
+          "type": ["string", "null"],
+          "description": "Native error domain/API family; null when not supplied."
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence_number",
+        "direction",
+        "api_operation",
+        "report_type",
+        "report_id",
+        "client_buffer_length",
+        "data_buffer_length",
+        "api_bytes_hex",
+        "api_result",
+        "duration_ms"
+      ],
+      "properties": {
+        "sequence_number": { "type": "integer", "minimum": 1 },
+        "direction": {
+          "type": "string",
+          "enum": ["host_to_device", "device_to_host"]
+        },
+        "api_operation": {
+          "type": "string",
+          "enum": ["set_report", "get_report"]
+        },
+        "report_type": { "type": "string", "minLength": 1 },
+        "report_id": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "client_buffer_length": { "type": "integer", "minimum": 0 },
+        "data_buffer_length": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "API data-buffer length; null only when the backend exposes no separate data buffer."
+        },
+        "client_buffer_hex": { "$ref": "#/$defs/hex_bytes" },
+        "data_buffer_hex": { "$ref": "#/$defs/hex_bytes" },
+        "api_bytes_hex": {
+          "$ref": "#/$defs/hex_bytes",
+          "description": "Exact sent (SetReport) or returned (GetReport) API-visible bytes."
+        },
+        "api_result": { "$ref": "#/$defs/api_result" },
+        "duration_ms": { "type": "number", "minimum": 0 }
+      },
+      "anyOf": [
+        { "required": ["client_buffer_hex"] },
+        { "required": ["data_buffer_hex"] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+build/
+build-*/
+cmake-build-*/
+*.elf
+*.hex
+*.bin
+*.uf2
+.DS_Store
+ZWO SDK/
+mikefsq_pcap/
+logs/
+tools/efw_capture/macos/efw_capture_readonly
