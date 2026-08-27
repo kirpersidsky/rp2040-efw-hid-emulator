@@ -84,23 +84,97 @@ screen /dev/cu.usbserial-XXXX 115200
    slot 2, OIII-focused channel in slot 3.
 5. Verify each transition manually before an unattended run.
 
-### Repeated autofocus plan
+## ASIAIR configuration
 
-For a session that must refocus periodically, use repeated Imaging Plan targets
-whose sequence starts and ends on slot 1:
+Before using the emulator, measure the best EAF position for each channel and
+calculate every offset relative to one reference slot. The values shown below
+are examples only; use the values measured on your own optical system.
+
+### 1. Configure when autofocus runs
+
+In **EAF Settings > Auto Focus**, enable **Before Autorun/Each Target Start**.
+Disable the other automatic-focus triggers for this workflow. Autofocus will
+then run once at the beginning of each target block in Autorun or Plan mode.
+
+![ASIAIR autofocus settings](docs/assets/asiair-autofocus-settings.png)
+
+*Figure 1 — Enable `Before Autorun/Each Target Start`; leave the other autofocus triggers disabled.*
+
+### 2. Configure virtual filter slots and offsets
+
+Open **EFW Settings > Filters Settings**. Select a reference slot and leave its
+offset at `0`. Assign the measured offsets to the virtual channel slots, then
+enable **Use Filters Offsets**.
+
+In the example below, `L` is the reference slot, while `H` and `O` are virtual
+slots for the H-alpha and OIII focus positions. The example values `-100` and
+`+40` must not be copied blindly.
+
+![ASIAIR filter offset settings](docs/assets/asiair-filter-offsets.png)
+
+*Figure 2 — Example virtual slots and measured offsets relative to the reference slot.*
+
+### 3. Measure and enter EAF backlash
+
+Measure the focuser backlash and enter the result in **EAF Settings >
+Backlash**. Accurate backlash compensation is important because ASIAIR may
+approach offset positions from different directions. An incorrect value can
+make the final focus position inconsistent.
+
+Also verify the **Reverse** setting and the sign of every offset by switching
+between the virtual slots manually and checking the resulting EAF position.
+
+![ASIAIR EAF backlash setting](docs/assets/asiair-eaf-backlash.png)
+
+*Figure 3 — Enter the backlash measured for your own focuser; `70` is only an example.*
+
+### 4. Split the plan into autofocus intervals
+
+With **Before Autorun/Each Target Start** enabled, every target block becomes
+one autofocus interval. Repeat the same target as several shorter blocks when
+you want autofocus to run periodically during the night.
+
+Check **Estimate Duration** at the top of the plan. This is approximately the
+time between successive autofocus runs. To autofocus more often, reduce the
+number of science exposures in each target block and add more repeated blocks.
+
+![ASIAIR plan with repeated target blocks](docs/assets/asiair-plan-overview.png)
+
+*Figure 4 — Repeated blocks of the same target; each block starts a new autofocus interval.*
+
+### 5. Start and finish each target block on the reference slot
+
+The first and last exposure blocks in every target sequence should use the
+reference virtual filter slot (`L` in this example). One exposure is sufficient,
+and its exposure time is not important. Between them, add the required H-alpha
+and OIII science exposures.
+
+This pattern leaves the virtual EFW on the reference slot at the end of the
+target block, ready for the next autofocus run.
+
+![ASIAIR target exposure sequence](docs/assets/asiair-plan-target-sequence.png)
+
+*Figure 5 — Reference exposure, H-alpha block, OIII block, then one final reference exposure.*
+
+Example sequence:
 
 ```text
-autofocus on slot 1
-slot 1: reference frames
-slot 2: channel frames, ASIAIR applies offset 2
-slot 3: channel frames, ASIAIR applies offset 3
-slot 1: short return frame
+Reference (L): 1 exposure
+H-alpha (H):   science exposures
+OIII (O):      science exposures
+Reference (L): 1 exposure
 ```
 
-Ending on slot 1 makes the next target's `Autofocus before each target start`
-operate on the reference filter even if ASIAIR autofocuses before processing
-the next target sequence. Confirm this order with a short daytime or test run
-before unattended imaging.
+### Meridian-flip planning
+
+Because **After Auto Meridian Flipped** is disabled in this workflow, avoid
+placing the meridian flip in the middle of a long target block. Adjust the block
+durations so that the block containing the expected flip ends shortly before
+the flip, or so that a new block—and therefore a new autofocus run—starts
+immediately after it.
+
+Treat the displayed duration as an estimate and leave some margin for slewing,
+settling, dithering, downloads, and the autofocus procedure itself.
 
 ## How the protocol work was done
 
