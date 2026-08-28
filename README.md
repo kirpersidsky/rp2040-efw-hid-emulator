@@ -136,7 +136,7 @@ you want autofocus to run periodically during the night.
 
 Check **Estimate Duration** at the top of the plan. This is approximately the
 time between successive autofocus runs. To autofocus more often, reduce the
-number of science exposures in each target block and add more repeated blocks.
+number of sub-uexposures in each target block and add more repeated blocks.
 
 ![ASIAIR plan with repeated target blocks](docs/assets/asiair-plan-overview.png)
 
@@ -147,7 +147,7 @@ number of science exposures in each target block and add more repeated blocks.
 The first and last exposure blocks in every target sequence should use the
 reference virtual filter slot (`L` in this example). One exposure is sufficient,
 and its exposure time is not important. Between them, add the required H-alpha
-and OIII science exposures.
+and OIII sub-exposures.
 
 This pattern leaves the virtual EFW on the reference slot at the end of the
 target block, ready for the next autofocus run.
@@ -160,8 +160,8 @@ Example sequence:
 
 ```text
 Reference (L): 1 exposure
-H-alpha (H):   science exposures
-OIII (O):      science exposures
+H-alpha (H):   sub-exposures
+OIII (O):      sub-exposures
 Reference (L): 1 exposure
 ```
 
