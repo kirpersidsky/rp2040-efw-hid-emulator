@@ -160,8 +160,8 @@ Example sequence:
 
 ```text
 Reference (L): 1 exposure
-H-alpha (H):   sub-exposures
-OIII (O):      sub-exposures
+H-alpha (H):   N sub-exposures
+OIII (O):      N sub-exposures
 Reference (L): 1 exposure
 ```
 
