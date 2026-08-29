@@ -136,7 +136,7 @@ you want autofocus to run periodically during the night.
 
 Check **Estimate Duration** at the top of the plan. This is approximately the
 time between successive autofocus runs. To autofocus more often, reduce the
-number of sub-uexposures in each target block and add more repeated blocks.
+number of sub-exposures in each target block and add more repeated blocks.
 
 ![ASIAIR plan with repeated target blocks](docs/assets/asiair-plan-overview.png)
 
