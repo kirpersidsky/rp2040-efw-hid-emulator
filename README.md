@@ -3,6 +3,8 @@
 An experimental Raspberry Pi Pico / RP2040 USB HID compatibility profile that ASIAIR recognizes as a ZWO EFW. It provides three virtual filter slots for a fixed physical dualband
 filter: no filter wheel or filter exchange is required.
 
+**[Open the illustrated project page](https://kirpersidsky.github.io/rp2040-efw-hid-emulator/)**
+
 The intended use case is fast optical systems (approximately f/4 and faster), where the converging beam can shift a narrowband filter’s effective bandpass and produce different
 best-focus positions for the Ha and OIII-dominated channels. ASIAIR can autofocus once through the dual-band reference slot, then apply calibrated ZWO EAF offsets when switching
 between the virtual Ha and OIII slots.

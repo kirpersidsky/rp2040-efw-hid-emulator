@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#06101e">
+    <meta name="description" content="Virtual Filter Slots for ASIAIR: separate Ha and OIII focus offsets with one fixed dual-band filter.">
+    <meta property="og:title" content="Virtual Filter Slots for ASIAIR">
+    <meta property="og:description" content="Use separate Ha and OIII focus offsets with one fixed dual-band filter.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/">
+    <meta property="og:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Virtual Filter Slots for ASIAIR">
+    <meta name="twitter:description" content="One physical filter. Separate Ha and OIII focus offsets.">
+    <meta name="twitter:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview.png">
+    <title>Virtual Filter Slots for ASIAIR</title>
+    <link rel="stylesheet" href="site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Virtual Filter Slots home">
+        <span class="brand-mark" aria-hidden="true">VFS</span>
+        <span>Virtual Filter Slots</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#problem">The problem</a>
+        <a href="#solution">How it works</a>
+        <a href="#configure">Configure</a>
+        <a href="#install">Install</a>
+        <a class="nav-cta" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Open-source · Raspberry Pi Pico · ASIAIR</p>
+          <h1>One physical filter.<br><span>Three virtual focus slots.</span></h1>
+          <p class="hero-lede">
+            VFS lets ASIAIR apply separate ZWO EAF offsets for the Ha- and
+            OIII-dominated channels of a permanently installed dual-band filter.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#solution">See how it works</a>
+            <a class="button secondary" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Download firmware</a>
+          </div>
+          <ul class="proof-list" aria-label="Project highlights">
+            <li><strong>3</strong><span>virtual slots</span></li>
+            <li><strong>RP2040</strong><span>USB HID emulator</span></li>
+            <li><strong>Open</strong><span>source &amp; firmware</span></li>
+          </ul>
+        </div>
+
+        <figure class="hero-visual">
+          <img src="assets/optical-train-ha-oiii-focus.png" alt="Optical train diagram showing separate Ha and OIII focal planes">
+          <figcaption>Focus separation is exaggerated for clarity.</figcaption>
+        </figure>
+      </section>
+
+      <section class="demo section-shell" aria-labelledby="demo-title">
+        <div class="section-heading narrow">
+          <p class="eyebrow">What changes</p>
+          <h2 id="demo-title">One filter remains fixed. Only the focus position changes.</h2>
+          <p>The animation is a conceptual visualization, not an optical simulation. The distance between focal planes is deliberately exaggerated.</p>
+        </div>
+        <div class="demo-grid">
+          <video autoplay muted loop playsinline poster="assets/optical-train-ha-oiii-focus.png">
+            <source src="assets/optical-train-ha-oiii-focus-animation.mp4" type="video/mp4">
+          </video>
+          <div class="slot-stack">
+            <article><span>Slot 1</span><strong>Reference</strong><small>Autofocus position · offset 0</small></article>
+            <article><span>Slot 2</span><strong>Ha</strong><small>Your measured Ha offset</small></article>
+            <article><span>Slot 3</span><strong>OIII</strong><small>Your measured OIII offset</small></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="configure section-shell" id="configure">
+        <div class="section-heading">
+          <p class="eyebrow">ASIAIR configuration</p>
+          <h2>Calibrate first, then let the plan repeat the workflow.</h2>
+          <p>Offsets and backlash are specific to your optical system. The values visible below are examples—measure your own before imaging.</p>
+        </div>
+        <div class="setup-steps">
+          <article class="setup-card">
+            <div class="setup-copy"><span class="step">01</span><h3>Choose when autofocus runs</h3><p>In EAF Auto Focus settings, enable <strong>Before Autorun/Each Target Start</strong>. For this workflow, leave the other Autorun/Plan triggers off.</p></div>
+            <img src="assets/asiair-autofocus-settings.png" alt="ASIAIR EAF Auto Focus settings with Before Autorun/Each Target Start enabled" loading="lazy">
+          </article>
+          <article class="setup-card reverse">
+            <div class="setup-copy"><span class="step">02</span><h3>Enter your measured offsets</h3><p>Name the virtual slots, make one slot the reference, enter the Ha and OIII offsets, then enable <strong>Use Filters Offsets</strong>.</p></div>
+            <img src="assets/asiair-filter-offsets.png" alt="ASIAIR virtual filter slots with reference, Ha and OIII offsets" loading="lazy">
+          </article>
+          <article class="setup-card">
+            <div class="setup-copy"><span class="step">03</span><h3>Compensate focuser backlash</h3><p>Measure the backlash of your focuser and enter it in the EAF settings. Accurate compensation is important when offsets move the focuser in different directions.</p></div>
+            <img src="assets/asiair-eaf-backlash.png" alt="ASIAIR EAF settings showing the backlash field" loading="lazy">
+          </article>
+        </div>
+
+        <div class="plan-block">
+          <div class="plan-copy">
+            <p class="eyebrow">Imaging plan</p>
+            <h3>Bookend every target with the reference slot.</h3>
+            <p>Start and finish each target sequence with one short exposure assigned to the reference slot. Exposure time is not important; one frame is enough. Between them, place the Ha and OIII blocks you actually want to capture.</p>
+            <p>The plan's estimated duration is approximately the interval between autofocus runs. Shorten the blocks if you need autofocus more often. Arrange any block that overlaps a meridian flip so it ends immediately before or starts just after the flip.</p>
+          </div>
+          <div class="plan-images">
+            <figure><img src="assets/asiair-plan-target-sequence.png" alt="ASIAIR target sequence beginning and ending with the reference slot" loading="lazy"><figcaption>Reference → Ha → OIII → Reference</figcaption></figure>
+            <figure><img src="assets/asiair-plan-overview.png" alt="ASIAIR imaging plan overview with repeated target sessions" loading="lazy"><figcaption>Repeat sessions to set the autofocus cadence</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="install section-shell" id="install">
+        <div class="section-heading narrow">
+          <p class="eyebrow">Installation</p>
+          <h2>Flash a Pico in a few minutes.</h2>
+          <p>No compiler is required when using the ready-made UF2 release.</p>
+        </div>
+        <ol class="install-list">
+          <li><span>1</span><div><strong>Download the latest UF2</strong><p>Get the firmware from the project's GitHub Releases page.</p></div></li>
+          <li><span>2</span><div><strong>Enter BOOTSEL mode</strong><p>Hold the Pico's BOOTSEL button while connecting it to your computer by USB.</p></div></li>
+          <li><span>3</span><div><strong>Copy the firmware</strong><p>Drag the UF2 file onto the <code>RPI-RP2</code> drive. The board reboots automatically.</p></div></li>
+          <li><span>4</span><div><strong>Connect to ASIAIR</strong><p>Plug the Pico into ASIAIR. It should appear as a ZWO EFW with virtual slots.</p></div></li>
+        </ol>
+        <div class="note"><strong>Before a real session:</strong> confirm slot switching and EAF movement indoors. VFS does not measure offsets for you; it applies values you have already calibrated.</div>
+      </section>
+
+      <section class="limits section-shell">
+        <div class="section-heading narrow">
+          <p class="eyebrow">Scope</p>
+          <h2>Small tool, deliberately narrow purpose.</h2>
+        </div>
+        <div class="limits-grid">
+          <div><strong>It does</strong><p>Emulate a compatible USB HID filter wheel, expose virtual slots, and let ASIAIR activate stored EAF offsets.</p></div>
+          <div><strong>It does not</strong><p>Move a physical filter, control the EAF directly, determine the correct focus offset, or guarantee compatibility with future ASIAIR updates.</p></div>
+        </div>
+      </section>
+
+      <section class="final-cta section-shell">
+        <p class="eyebrow">Build it, test it, improve it</p>
+        <h2>Ready to try Virtual Filter Slots?</h2>
+        <p>Read the detailed documentation, download the firmware, or inspect the source code.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Download firmware</a>
+          <a class="button secondary" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator#readme">Open README</a>
+        </div>
+      </section>
+
+      <section class="problem section-shell" id="problem">
+        <div class="section-heading">
+          <p class="eyebrow">The observation</p>
+          <h2>Autofocus found a compromise, not both channel minima.</h2>
+        </div>
+        <div class="problem-grid">
+          <article class="story-card">
+            <span class="step">01</span>
+            <h3>Measure separately</h3>
+            <p>On the tested f/4 system, the red and green channels reached their smallest stars at different EAF positions.</p>
+          </article>
+          <article class="story-card">
+            <span class="step">02</span>
+            <h3>Store the offsets</h3>
+            <p>ASIAIR can apply calibrated filter offsets—but only when it detects an electronic filter wheel.</p>
+          </article>
+          <article class="story-card accent-card">
+            <span class="step">03</span>
+            <h3>Virtualize the slots</h3>
+            <p>A Pico presents three virtual EFW positions while the physical dual-band filter stays in place.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="solution section-shell" id="solution">
+        <div class="section-heading narrow">
+          <p class="eyebrow">The idea</p>
+          <h2>The emulator changes state. ASIAIR moves the focuser.</h2>
+          <p>VFS never controls the EAF directly and never moves a physical filter. It supplies the virtual slot change that activates ASIAIR's own filter-offset workflow.</p>
+        </div>
+        <div class="flow" role="img" aria-label="ASIAIR selects a slot, Pico reports its state, and ASIAIR applies the corresponding EAF offset">
+          <div class="flow-node"><span>1</span><strong>ASIAIR</strong><small>selects Reference, Ha, or OIII</small></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node focus"><span>2</span><strong>Raspberry Pi Pico</strong><small>reports the virtual EFW slot</small></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>3</span><strong>ZWO EAF</strong><small>moves by the calibrated offset</small></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Open-source independent interoperability experiment. Not affiliated with or endorsed by ZWO.</p>
+    </footer>
+  </body>
+</html>
