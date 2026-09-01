@@ -6,6 +6,7 @@ cmake-build-*/
 *.bin
 *.uf2
 .DS_Store
+docs/qa-*.png
 ZWO SDK/
 mikefsq_pcap/
 logs/
