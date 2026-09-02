@@ -76,7 +76,7 @@
 <div class="heading">
 <p class="eye">The observation</p>
 <h2>Ha and OIII may need slightly different focus positions.</h2>
-<p>In the tested setup, the red and green parts of the image were sharp at different ZWO EAF positions.</p>
+<p>In the tested setup, the red and green parts of the image were sharp at different ZWO EAF positions. ASIAIR autofocus settled on a compromise between them—closer to the OIII/green focus in this test—rather than placing both channels at their individual best focus.</p>
 <p>This can happen because the telescope, reducer, corrector, and other glass in the optical path do not treat every wavelength in exactly the same way. Fast systems have a very narrow range of good focus, so even a small difference can become visible.</p>
 </div>
 <figure class="observation-visual">
@@ -89,23 +89,24 @@
 <div class="measurement-heading">
 <p class="eye">Bahtinov mask observation</p>
 <h3>Each color channel becomes sharp at a different focuser position.</h3>
-<p>These two 3-second exposures were taken at f/4 and 140 EAF steps apart. In one image the green pattern is centered; in the other, the red pattern is centered. On an even faster system, a small focus difference may be easier to see because the range of good focus is narrower.</p>
+<p>These two 3-second exposures were taken at f/4 and 140 EAF steps apart. ASIAIR autofocus selected position 30120—a compromise between the two channel-specific focus positions. In one image the green pattern is centered; in the other, the red pattern is centered. On an even faster system, a small focus difference may be easier to see because the range of good focus is narrower.</p>
 </div>
 <div class="focus-samples">
 <figure>
-<button class="image-button" type="button" data-src="assets/focus-pattern-sample-a.png" data-alt="Expanded ASIAIR Bahtinov mask pattern at ZWO EAF position minus 30020">
-<img src="assets/focus-pattern-sample-a.png" alt="ASIAIR Bahtinov mask pattern at ZWO EAF position minus 30020">
+<button class="image-button" type="button" data-src="assets/focus-pattern-sample-a.png" data-alt="Expanded ASIAIR Bahtinov mask pattern at ZWO EAF position 30020">
+<img src="assets/focus-pattern-sample-a.png" alt="ASIAIR Bahtinov mask pattern at ZWO EAF position 30020">
 </button>
-<figcaption>Sample A · ZWO EAF −30020 · 3-second exposure.</figcaption>
+<figcaption>Sample A · Ha/red focus · ZWO EAF 30020 · 3-second exposure.</figcaption>
 </figure>
 <figure>
-<button class="image-button" type="button" data-src="assets/focus-pattern-sample-b.png" data-alt="Expanded ASIAIR Bahtinov mask pattern at ZWO EAF position minus 30160">
-<img src="assets/focus-pattern-sample-b.png" alt="ASIAIR Bahtinov mask pattern at ZWO EAF position minus 30160">
+<button class="image-button" type="button" data-src="assets/focus-pattern-sample-b.png" data-alt="Expanded ASIAIR Bahtinov mask pattern at ZWO EAF position 30160">
+<img src="assets/focus-pattern-sample-b.png" alt="ASIAIR Bahtinov mask pattern at ZWO EAF position 30160">
 </button>
-<figcaption>Sample B · ZWO EAF −30160 · 3-second exposure.</figcaption>
+<figcaption>Sample B · OIII/green focus · ZWO EAF 30160 · 3-second exposure.</figcaption>
 </figure>
 </div>
 <p class="sample-note">Moving the focuser by 140 steps shifts the centered Bahtinov spike from one color channel to the other. This shows what happened in this f/4 setup; it is not an offset that should be copied to another telescope. The result on a faster system still depends on its complete optical path.</p>
+<aside><strong>Example offset calculation:</strong> use the autofocus result as Reference 0. Ha: 30020 − 30120 = −100. OIII: 30160 − 30120 = +40. The separation is +40 − (−100) = 140 EAF steps. Enter Reference 0, Ha −100, and OIII +40 in ASIAIR. Your values—and possibly their signs—may differ.</aside>
 <aside class="warning">
 <strong>Measure your own setup:</strong> repeat the test several times before choosing an offset.</aside>
 </div>
