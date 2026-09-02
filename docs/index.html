@@ -36,6 +36,7 @@
 <a href="#install">Install</a>
 <a href="#configure">Configure</a>
 <a href="#limits">Limitations</a>
+<a href="#questions">Common questions</a>
 <a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator">GitHub</a>
 <a class="nav-cta" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Download firmware</a>
 </nav>
@@ -44,11 +45,10 @@
 <section class="hero shell">
 <div class="hero-copy">
 <p class="eye">Open-source · Raspberry Pi Pico · ASIAIR</p>
-<h1>One dual-band filter.<br>
-Separate focus positions.<br>
-<em>Sharper images.</em>
+<h1>Sharper dual-band images,<br>
+<em>made simple.</em>
 </h1>
-<p class="lede">Fix wavelength-dependent softness in fast optical systems by letting ASIAIR apply a measured focus offset for each band.</p>
+<p class="lede">A simple workaround that lets ASIAIR apply a measured focus offset for each band, reducing wavelength-dependent softness in fast optical systems.</p>
 <div class="actions">
 <a class="button primary" href="#how">See how it works</a>
 <a class="button" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Download firmware</a>
@@ -432,8 +432,8 @@ Separate focus positions.<br>
 <p>You can, but the next autofocus run may return to a position between the best Ha and OIII focus points. A virtual slot lets ASIAIR reapply the saved offset automatically.</p>
 </article>
 <article>
-<h3>Can I use it when I mainly want Ha?</h3>
-<p>Yes. For example, you can collect Ha-focused data for a broadband project and let ASIAIR return to the Ha position after every autofocus run.</p>
+<h3>Does a pre-shifted filter solve the focus problem?</h3>
+<p>No. A pre-shifted filter is designed to reduce bandpass shift in fast optics, helping its transmission bands stay aligned with the Ha and OIII emission lines. It does not correct wavelength-dependent focus differences introduced by the rest of the optical system. VFS solves the opposite part of the problem: it applies your measured focus offsets, but it does not correct bandpass shift. If your setup needs a fast-optics filter, you may still need one.</p>
 </article>
 <article>
 <h3>How do I know if my setup needs VFS?</h3>
