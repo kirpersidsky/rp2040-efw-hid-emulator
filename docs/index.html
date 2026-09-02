@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#06101e">
-<meta name="description" content="Virtual Filter Slots for ASIAIR: separate Ha and OIII focus offsets with one fixed dual-band filter.">
+<meta name="description" content="Use separate focus positions for each band while one dual-band filter stays in place.">
 <meta property="og:title" content="Virtual Filter Slots for ASIAIR">
-<meta property="og:description" content="One fixed dual-band filter. Separate Ha and OIII focus positions.">
+<meta property="og:description" content="One dual-band filter. Separate focus positions. Sharper images.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/">
-<meta property="og:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview-v6-brighter.png">
+<meta property="og:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview-v7-front-wheel.png">
 <meta property="og:image:width" content="1730">
 <meta property="og:image:height" content="909">
 <meta property="og:image:alt" content="Virtual Filter Slots for ASIAIR projected above a Raspberry Pi Pico controller">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Virtual Filter Slots for ASIAIR">
-<meta name="twitter:description" content="One fixed dual-band filter. Separate Ha and OIII focus positions.">
-<meta name="twitter:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview-v6-brighter.png">
+<meta name="twitter:description" content="One dual-band filter. Separate focus positions. Sharper images.">
+<meta name="twitter:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview-v7-front-wheel.png">
 <meta name="twitter:image:alt" content="Virtual Filter Slots for ASIAIR projected above a Raspberry Pi Pico controller">
 <title>VFS — Virtual Filter Slots</title>
 <link rel="stylesheet" href="site-v3.css?v=5">
@@ -44,10 +44,11 @@
 <section class="hero shell">
 <div class="hero-copy">
 <p class="eye">Open-source · Raspberry Pi Pico · ASIAIR</p>
-<h1>One fixed dual-band filter.<br>
-<em>Separate Ha and OIII focus positions.</em>
+<h1>One dual-band filter.<br>
+Separate focus positions.<br>
+<em>Sharper images.</em>
 </h1>
-<p class="lede">VFS uses a Raspberry Pi Pico to present three virtual filter slots to ASIAIR. This lets ASIAIR apply user-calibrated ZWO EAF offsets while the physical dual-band filter remains permanently installed.</p>
+<p class="lede">Fix wavelength-dependent softness in fast optical systems by letting ASIAIR apply a measured focus offset for each band.</p>
 <div class="actions">
 <a class="button primary" href="#how">See how it works</a>
 <a class="button" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Download firmware</a>
@@ -55,7 +56,7 @@
 <ul class="facts">
 <li>
 <b>3 virtual slots</b>
-<small>Reference · Ha · OIII</small>
+<small>For Ha/OIII or SII/OIII</small>
 </li>
 <li>
 <b>RP2040</b>
@@ -74,9 +75,9 @@
 <section class="section shell observation" id="why">
 <div class="heading">
 <p class="eye">The observation</p>
-<h2>One autofocus position may not be optimal for both channels.</h2>
-<p>In the tested optical setup, the Ha- and OIII-dominated channels reached their best-focus positions at different ZWO EAF coordinates.</p>
-<p>This effect is not limited to one setup. In fast imaging systems, the shallow critical-focus zone makes small wavelength-dependent focus shifts easier to see. Residual longitudinal chromatic aberration from refractive elements in the telescope, reducer or corrector—and other wavelength-dependent effects across the complete optical train—can place the red and green parts of a dual-band image at slightly different best-focus positions.</p>
+<h2>Ha and OIII may need slightly different focus positions.</h2>
+<p>In the tested setup, the red and green parts of the image were sharp at different ZWO EAF positions.</p>
+<p>This can happen because the telescope, reducer, corrector, and other glass in the optical path do not treat every wavelength in exactly the same way. Fast systems have a very narrow range of good focus, so even a small difference can become visible.</p>
 </div>
 <figure class="observation-visual">
 <button class="image-button" type="button" data-src="assets/optical-train-ha-oiii-focus-final.png" data-alt="Expanded conceptual optical train showing separate Ha and OIII focus positions">
@@ -87,8 +88,8 @@
 <div class="measurement">
 <div class="measurement-heading">
 <p class="eye">Bahtinov mask observation</p>
-<h3>The two color channels align at different focuser positions.</h3>
-<p>Two 3-second exposures were taken 140 ZWO EAF steps apart. The Bahtinov pattern shifts from alignment in the green channel to alignment in the red channel.</p>
+<h3>Each color channel becomes sharp at a different focuser position.</h3>
+<p>These two 3-second exposures were taken at f/4 and 140 EAF steps apart. In one image the green pattern is centered; in the other, the red pattern is centered. On an even faster system, a small focus difference may be easier to see because the range of good focus is narrower.</p>
 </div>
 <div class="focus-samples">
 <figure>
@@ -104,11 +105,11 @@
 <figcaption>Sample B · ZWO EAF −30160 · 3-second exposure.</figcaption>
 </figure>
 </div>
-<p class="sample-note">The 140-step change moves the middle Bahtinov spike from the centered position in one color channel to the centered position in the other. These screenshots illustrate the observed focus separation in this setup; they are not a universal offset or a precision calibration.</p>
+<p class="sample-note">Moving the focuser by 140 steps shifts the centered Bahtinov spike from one color channel to the other. This shows what happened in this f/4 setup; it is not an offset that should be copied to another telescope. The result on a faster system still depends on its complete optical path.</p>
 <aside class="warning">
-<strong>Observation only:</strong> use repeated measurements in your own optical system to determine reliable channel offsets.</aside>
+<strong>Measure your own setup:</strong> repeat the test several times before choosing an offset.</aside>
 </div>
-<aside>The size and cause of any focus separation depend on the complete optical system. VFS does not assume a universal offset.</aside>
+<aside>The difference depends on the complete optical setup. VFS does not assume that every system needs the same offset—or any offset at all.</aside>
 <div class="cards three observation-steps">
 <article>
 <i>01</i>
@@ -117,7 +118,7 @@
 <path d="M25 21v10m9-10v6m9-6v10m10-10v6m9-6v10m9-10v6"/>
 </svg>
 <h3>Measure separately</h3>
-<p>The best-focus position of each channel is measured in the user’s own optical system.</p>
+<p>Find the sharpest focus position for each channel in your own setup.</p>
 </article>
 <article>
 <i>02</i>
@@ -127,7 +128,7 @@
 <text x="46" y="39" text-anchor="middle">Δ</text>
 </svg>
 <h3>Store the difference</h3>
-<p>ASIAIR can store EAF offsets for different filter-wheel positions.</p>
+<p>Enter the difference as a focus offset in ASIAIR.</p>
 </article>
 <article class="accent">
 <i>03</i>
@@ -140,15 +141,15 @@
 <text class="slot-number" x="62" y="48" text-anchor="middle">3</text>
 </svg>
 <h3>Virtualize the slots</h3>
-<p>A Pico supplies the missing virtual positions without moving or replacing the physical filter.</p>
+<p>The Pico provides three virtual slots. The physical filter never moves.</p>
 </article>
 </div>
 </section>
 <section class="section shell" id="how">
 <div class="heading">
 <p class="eye">How it works</p>
-<h2>The emulator changes the virtual slot. ASIAIR moves the focuser.</h2>
-<p>ASIAIR selects a virtual slot and applies the corresponding offset through the real ZWO EAF.</p>
+<h2>The Pico changes the virtual slot. ASIAIR moves the focuser.</h2>
+<p>Choose Reference, Ha, or OIII. ASIAIR reads the saved offset and moves the real ZWO EAF.</p>
 </div>
 <div class="flow component-flow">
 <article>
@@ -166,7 +167,7 @@
 <img src="assets/raspberry-pi-pico.png" alt="Raspberry Pi Pico">
 </div>
 <b>Raspberry Pi Pico</b>
-<small>Reports the selected virtual EFW slot</small>
+<small>Acts like a filter wheel with virtual slots</small>
 </article>
 <span aria-hidden="true">→</span>
 <article>
@@ -175,7 +176,7 @@
 <img src="assets/asiair-mini-angle-source.png" alt="">
 </div>
 <b>ASIAIR</b>
-<small>Applies the stored focus offset</small>
+<small>Reads the saved focus offset</small>
 </article>
 <span aria-hidden="true">→</span>
 <article>
@@ -188,10 +189,10 @@
 </article>
 </div>
 <aside class="warning">
-<strong>The Pico does not control the EAF directly.</strong> ASIAIR remains responsible for physical focuser movement.</aside>
+<strong>The Pico does not move the focuser.</strong> ASIAIR controls the real ZWO EAF.</aside>
 <div class="slots-heading">
-<h3>Three virtual slots for three calibrated focus positions.</h3>
-<p>The names represent virtual positions in ASIAIR; the physical filter does not change.</p>
+<h3>Three virtual slots for three saved focus positions.</h3>
+<p>Only the slot name and focus offset change. The same physical filter stays installed.</p>
 </div>
 <div class="cards three slots">
 <article>
@@ -214,7 +215,7 @@
 <section class="section shell requirements-section">
 <div class="heading">
 <p class="eye">Requirements</p>
-<h2>A small addition to an existing ASIAIR setup.</h2>
+<h2>What you need.</h2>
 </div>
 <ul class="requirements component-requirements">
 <li class="pico">
@@ -243,7 +244,7 @@
 </li>
 </ul>
 <aside>
-<strong>VFS is an emulator, not a physical filter wheel.</strong>
+<strong>VFS acts like a filter wheel in ASIAIR, but it does not move or replace the physical filter.</strong>
 </aside>
 </section>
 <section class="section shell" id="install">
@@ -283,15 +284,15 @@
 <section class="section shell" id="configure">
 <div class="heading">
 <p class="eye">ASIAIR configuration</p>
-<h2>Measure first. Enter your own offsets. Verify every move.</h2>
-<p>Values shown in screenshots are examples only.</p>
+<h2>Measure, enter the offsets, and test each slot.</h2>
+<p>The numbers in the screenshots are examples. Use values measured with your own setup.</p>
 </div>
 <div class="setup">
 <article>
 <div>
 <i>01</i>
-<h3>Choose when autofocus runs</h3>
-<p>Enable <strong>Before Autorun/Each Target Start</strong> and review the other triggers.</p>
+<h3>Enable autofocus before each target</h3>
+<p>Turn on <strong>Before Autorun/Each Target Start</strong>. VFS relies on this setting so each target block begins with autofocus on the Reference slot.</p>
 </div>
 <button class="screenshot autofocus" type="button" data-src="assets/asiair-autofocus-settings-mac.png" data-alt="Expanded ASIAIR autofocus trigger configuration">
 <span class="crop">
@@ -300,14 +301,14 @@
 <img src="assets/asiair-autofocus-settings-mac.png" alt="ASIAIR autofocus trigger settings in the macOS app">
 </picture>
 </span>
-<small>Example autofocus trigger configuration.</small>
+<small>Required: enable Before Autorun/Each Target Start.</small>
 </button>
 </article>
 <article>
 <div>
 <i>02</i>
 <h3>Assign the virtual slots</h3>
-<p>Set a zero-offset reference, enter measured Ha and OIII offsets, and enable <strong>Use Filters Offsets</strong>.</p>
+<p>Use Reference as zero, enter your Ha and OIII offsets, and turn on <strong>Use Filters Offsets</strong>.</p>
 </div>
 <button class="screenshot offsets" type="button" data-src="assets/asiair-filter-offsets-mac.png" data-alt="Expanded ASIAIR virtual slot names and filter offsets configuration">
 <span class="crop">
@@ -323,7 +324,7 @@
 <div>
 <i>03</i>
 <h3>Configure focuser backlash</h3>
-<p>Enter measured backlash. Verify Reverse and every offset sign by switching slots manually.</p>
+<p>Enter your measured backlash. Switch between all three slots and check that the focuser moves in the correct direction.</p>
 </div>
 <button class="screenshot backlash" type="button" data-src="assets/asiair-eaf-backlash-mac.png" data-alt="Expanded ASIAIR EAF backlash and Reverse settings">
 <span class="crop">
@@ -340,7 +341,7 @@
 <section class="section shell">
 <div class="heading">
 <p class="eye">Imaging plan</p>
-<h2>Begin and end each target block on the reference slot.</h2>
+<h2>Start and finish each target block on Reference.</h2>
 </div>
 <div class="plan">
 <span>Reference</span>
@@ -352,7 +353,7 @@
 <span>Reference</span>
 </div>
 <div class="plan-grid">
-<p>Start with a reference exposure, place the Ha and OIII imaging between the reference entries, then return to Reference so the next autofocus run begins from the expected virtual slot.</p>
+<p>Start on Reference, capture the Ha and OIII blocks, then return to Reference. This puts the next autofocus run on the expected slot.</p>
 <button type="button" data-src="assets/asiair-plan-target-sequence-mac.png" data-alt="Expanded ASIAIR target sequence example">
 <picture>
 <source media="(max-width: 600px)" srcset="assets/asiair-plan-target-sequence-phone.png">
@@ -365,7 +366,7 @@
 <summary>Detailed plan example</summary>
 <div class="details-grid">
 <div>
-<p>Shorter repeated target blocks determine how often autofocus runs.</p>
+<p>Use shorter repeated target blocks if you want autofocus to run more often.</p>
 <ul>
 <li>Plan meridian flips between blocks where practical.</li>
 <li>Allow time for slewing, settling, dithering, downloads, and autofocus.</li>
@@ -383,34 +384,75 @@
 <section class="section shell" id="limits">
 <div class="heading">
 <p class="eye">Scope and limitations</p>
-<h2>A deliberately narrow interoperability experiment.</h2>
+<h2>What VFS does—and what it does not do.</h2>
 </div>
 <div class="scope">
 <article>
 <h3>VFS does</h3>
 <ul>
-<li>Emulate the tested USB HID filter-wheel behaviour.</li>
-<li>Expose three virtual slots to ASIAIR.</li>
-<li>Let ASIAIR activate user-measured offsets.</li>
+<li>Appear in ASIAIR as a simple filter wheel.</li>
+<li>Provide three virtual slots.</li>
+<li>Let ASIAIR use your saved focus offsets.</li>
 </ul>
 </article>
 <article>
 <h3>VFS does not</h3>
 <ul>
 <li>Move or replace the physical filter.</li>
-<li>Control the ZWO EAF directly.</li>
-<li>Measure or calculate offsets.</li>
-<li>Improve optics by itself.</li>
-<li>Guarantee future ASIAIR compatibility.</li>
+<li>Control the ZWO EAF by itself.</li>
+<li>Measure or calculate offsets for you.</li>
+<li>Make an optical system sharper by itself.</li>
+<li>Guarantee compatibility with future ASIAIR updates.</li>
 </ul>
 </article>
 </div>
 <aside>Independent open-source interoperability experiment. Not an official ZWO product and not affiliated with or endorsed by ZWO.</aside>
 </section>
+<section class="section shell" id="questions">
+<div class="heading">
+<p class="eye">Common questions</p>
+<h2>When does Virtual Filter Slots make sense?</h2>
+<p>Short answers to the questions most people ask first.</p>
+</div>
+<div class="scope cards">
+<article>
+<h3>Does this remove the main advantage of a dual-band filter?</h3>
+<p>There is a trade-off. Both bands are still captured at the same time, but only one can be at its best focus if Ha and OIII focus at different positions. VFS lets you choose which band gets priority.</p>
+</article>
+<article>
+<h3>Why not use separate Ha and OIII filters?</h3>
+<p>Separate filters and a real filter wheel are the better choice for some setups. VFS is for people who already use one fixed dual-band filter and want more control without adding a physical wheel.</p>
+</article>
+<article>
+<h3>What happens to the other band?</h3>
+<p>It is still recorded, but it may be slightly out of focus. Whether that data is still useful depends on your optics and the size of the focus difference.</p>
+</article>
+<article>
+<h3>Why not adjust focus manually?</h3>
+<p>You can, but the next autofocus run may return to a position between the best Ha and OIII focus points. A virtual slot lets ASIAIR reapply the saved offset automatically.</p>
+</article>
+<article>
+<h3>Can I use it when I mainly want Ha?</h3>
+<p>Yes. For example, you can collect Ha-focused data for a broadband project and let ASIAIR return to the Ha position after every autofocus run.</p>
+</article>
+<article>
+<h3>How do I know if my setup needs VFS?</h3>
+<p>Measure both channels several times. If the focus difference is repeatable and visible in your images, VFS may help. If both channels are already sharp, there may be nothing to fix.</p>
+</article>
+<article>
+<h3>Can it run unattended?</h3>
+<p>Yes, after you have measured the offsets and tested every slot change, offset direction, and backlash setting indoors.</p>
+</article>
+<article>
+<h3>Is this a replacement for a physical filter wheel?</h3>
+<p>No. VFS changes virtual slot names and focus offsets only. It never changes the filter in front of the camera.</p>
+</article>
+</div>
+</section>
 <section class="cta shell">
 <p class="eye">Build it. Test it. Share what you learn.</p>
 <h2>Ready to try Virtual Filter Slots?</h2>
-<p>Download the firmware, follow the setup guide, and verify the complete workflow before using it unattended.</p>
+<p>Download the firmware, follow the setup guide, and test every slot before leaving the setup unattended.</p>
 <div class="actions">
 <a class="button primary" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Download firmware</a>
 <a class="button" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator#readme">Read the setup guide</a>
@@ -428,7 +470,7 @@
 <a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator">GitHub</a>
 <a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/releases">Releases</a>
 <a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator#readme">Documentation</a>
-<a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/blob/main/docs/zwo_protocol.md">Protocol scope</a>
+<a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/blob/main/docs/PROTOCOL_SCOPE.md">Protocol scope</a>
 </nav>
 </footer>
 <dialog aria-label="Expanded image">
