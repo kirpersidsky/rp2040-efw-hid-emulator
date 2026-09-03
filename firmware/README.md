@@ -1,24 +1,5 @@
 # Firmware
 
-RP2040 firmware for ZWO EFW USB HID emulator.
-
-Current state:
-
-Empty implementation.
-
-Previous experimental TinyUSB code was removed.
-
-Development phases:
-
-1. USB enumeration
-2. HID report handling
-3. HID traffic logging
-4. ASIAIR initialization analysis
-5. Minimal EFW command emulation
-
-Do not implement commands before HID traffic is understood.
-# Firmware
-
 RP2040/TinyUSB firmware for the public ZWO EFW HID compatibility profile.
 
 Build from the repository root:

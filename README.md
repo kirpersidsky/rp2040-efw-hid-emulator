@@ -3,9 +3,12 @@
 An experimental Raspberry Pi Pico / RP2040 USB HID compatibility profile that ASIAIR recognizes as a ZWO EFW. It provides three virtual filter slots for a fixed physical dualband
 filter: no filter wheel or filter exchange is required.
 
-The intended use case is fast optical systems (approximately f/4 and faster), where the converging beam can shift a narrowband filter’s effective bandpass and produce different
-best-focus positions for the Ha and OIII-dominated channels. ASIAIR can autofocus once through the dual-band reference slot, then apply calibrated ZWO EAF offsets when switching
-between the virtual Ha and OIII slots.
+The intended use case is an optical setup where the two bands have measurably
+different best-focus positions. This can be more noticeable in fast systems,
+where the range of good focus is narrower. ASIAIR can autofocus once through
+the dual-band reference slot, then apply measured ZWO EAF offsets when switching
+between the virtual Ha and OIII slots. Focus separation depends on the complete
+optical system; VFS does not correct filter bandpass shift.
 
 This project was built because ASIAIR's hardware integration depends on
 vendor-specific USB identities and HID behaviour. A custom passive filter
@@ -96,7 +99,7 @@ In **EAF Settings > Auto Focus**, enable **Before Autorun/Each Target Start**.
 Disable the other automatic-focus triggers for this workflow. Autofocus will
 then run once at the beginning of each target block in Autorun or Plan mode.
 
-![ASIAIR autofocus settings](docs/assets/asiair-autofocus-settings.png)
+![ASIAIR autofocus settings](docs/assets/asiair-autofocus-settings-mac.png)
 
 *Figure 1 — Enable `Before Autorun/Each Target Start`; leave the other autofocus triggers disabled.*
 
@@ -110,7 +113,7 @@ In the example below, `L` is the reference slot, while `H` and `O` are virtual
 slots for the H-alpha and OIII focus positions. The example values `-100` and
 `+40` must not be copied blindly.
 
-![ASIAIR filter offset settings](docs/assets/asiair-filter-offsets.png)
+![ASIAIR filter offset settings](docs/assets/asiair-filter-offsets-mac.png)
 
 *Figure 2 — Example virtual slots and measured offsets relative to the reference slot.*
 
@@ -124,7 +127,7 @@ make the final focus position inconsistent.
 Also verify the **Reverse** setting and the sign of every offset by switching
 between the virtual slots manually and checking the resulting EAF position.
 
-![ASIAIR EAF backlash setting](docs/assets/asiair-eaf-backlash.png)
+![ASIAIR EAF backlash setting](docs/assets/asiair-eaf-backlash-mac.png)
 
 *Figure 3 — Enter the backlash measured for your own focuser; `70` is only an example.*
 
@@ -134,11 +137,13 @@ With **Before Autorun/Each Target Start** enabled, every target block becomes
 one autofocus interval. Repeat the same target as several shorter blocks when
 you want autofocus to run periodically during the night.
 
-Check **Estimate Duration** at the top of the plan. This is approximately the
-time between successive autofocus runs. To autofocus more often, reduce the
-number of sub-exposures in each target block and add more repeated blocks.
+Check the estimated timing for each target block. The duration of one block is
+approximately the time between successive autofocus runs; the full-plan
+**Estimate to End** is not the autofocus interval. To autofocus more often,
+reduce the number of sub-exposures in each target block and add more repeated
+blocks.
 
-![ASIAIR plan with repeated target blocks](docs/assets/asiair-plan-overview.png)
+![ASIAIR plan with repeated target blocks](docs/assets/asiair-plan-overview-mac.png)
 
 *Figure 4 — Repeated blocks of the same target; each block starts a new autofocus interval.*
 
@@ -152,7 +157,7 @@ and OIII sub-exposures.
 This pattern leaves the virtual EFW on the reference slot at the end of the
 target block, ready for the next autofocus run.
 
-![ASIAIR target exposure sequence](docs/assets/asiair-plan-target-sequence.png)
+![ASIAIR target exposure sequence](docs/assets/asiair-plan-target-sequence-mac.png)
 
 *Figure 5 — Reference exposure, H-alpha block, OIII block, then one final reference exposure.*
 

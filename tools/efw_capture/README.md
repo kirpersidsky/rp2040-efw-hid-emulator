@@ -2,8 +2,9 @@
 
 ## Purpose
 
-This directory specifies a future standalone collector for a volunteer who owns
-a physical ZWO EFW. The target device is USB VID `03C3`, PID `1F01`.
+This directory contains the collector specification and a macOS read-only
+implementation for a volunteer who owns a physical ZWO EFW. The target device
+is USB VID `03C3`, PID `1F01`.
 
 The intended workflow is simple: connect the EFW to macOS or Windows, run one
 binary, then send us its one JSON result file. The JSON file is the only
@@ -33,8 +34,8 @@ opt-in design and separate review.
 
 The ordinary collector invocation must not send a command that could move or
 calibrate the wheel, change position, write device configuration, or update
-firmware. This first repository change implements no collector and sends no
-HID report.
+firmware. The current macOS implementation reads metadata and the report
+descriptor only; it sends no HID reports.
 
 The only proposed future default active profile is documented in `SAFETY.md`.
 Its command bytes are a **local static-analysis fact** from
@@ -55,8 +56,8 @@ This records the API contract without claiming a captured USB wire packet.
 
 ## Current status
 
-This directory contains specification documents and a schema only. There is no
-executable collector, no packaged dependency, and no physical-device action.
+The macOS read-only collector is implemented. Active report exchanges,
+the Windows collector, and standalone volunteer packaging remain planned.
 
 ## macOS read-only collector
 

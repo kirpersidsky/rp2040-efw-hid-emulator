@@ -2,8 +2,9 @@
 
 ## Current stage
 
-This stage contains documentation and a JSON Schema only. It sends nothing to
-any device: no HID SetReport, no HID GetReport, and no other USB operation.
+The macOS read-only collector reads device metadata and the HID report
+descriptor through IOKit properties. It does not open the HID device or call
+HID SetReport/GetReport. Active profiles remain specification only.
 
 ## Future default active profile — specification only
 

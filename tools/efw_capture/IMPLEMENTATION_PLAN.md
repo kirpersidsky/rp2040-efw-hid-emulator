@@ -1,14 +1,14 @@
 # Implementation plan for the EFW collector
 
-## Stage 1 — current
+## Stage 1 — completed: specification
 
 Documentation and `capture_schema.json` only. No executable collector, HID API
 call, dependency, or firmware change is part of this stage.
 
-## Stage 2 — macOS passive collector
+## Stage 2 — implemented: macOS passive collector
 
-Implement macOS read-only enumeration and raw HID report-descriptor dump. It
-will perform no SetReport/GetReport operation.
+The implementation in `macos/` provides read-only enumeration and a raw HID
+report-descriptor dump. It performs no SetReport/GetReport operation.
 
 ## Stage 3 — macOS active `02 04` profile
 
