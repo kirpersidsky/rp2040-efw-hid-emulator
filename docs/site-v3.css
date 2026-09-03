@@ -231,9 +231,10 @@ footer nav{flex-wrap:wrap}
 
 /* v3: simplified hero and expanded observation evidence */
 .hero{grid-template-columns:1fr .82fr}
-.hero-pico{position:relative;display:grid;place-items:center;min-height:430px}
+.hero-pico{position:relative;display:grid;place-items:center;align-content:center;gap:14px;min-height:430px}
 .hero-pico:before{content:"";position:absolute;width:72%;aspect-ratio:1;border-radius:50%;background:rgba(92,231,209,.12);filter:blur(48px)}
 .hero-pico img{position:relative;display:block;width:min(100%,510px);height:auto;object-fit:contain;filter:drop-shadow(0 18px 28px rgba(0,0,0,.32)) drop-shadow(0 0 22px rgba(92,231,209,.12))}
+.hero-pico-label{position:relative;margin:0;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 
 .observation-visual img{display:block;width:100%;height:auto}
 .observation-steps article{display:flex;min-height:286px;flex-direction:column}
