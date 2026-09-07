@@ -113,6 +113,45 @@
 <strong>Measure your own setup:</strong> repeat the test several times before choosing an offset.</aside>
 </div>
 <aside>The difference depends on the complete optical setup. VFS does not assume that every system needs the same offset—or any offset at all.</aside>
+<section class="results-comparison" aria-labelledby="results-comparison-title">
+<div class="results-heading">
+<p class="eye">Real-world comparison</p>
+<h3 id="results-comparison-title">Same target. Same integration time. Separate focus for each band.</h3>
+<p>Two 30-minute stacks of the Pacman Nebula, processed with the same workflow. The first used the single compromise focus selected by autofocus. The second used VFS offsets to bring Ha and OIII to their own measured focus positions.</p>
+</div>
+<div class="result-pair color-result-pair">
+<figure class="result-card">
+<button class="image-button" type="button" data-src="assets/pacman-standard-color.png" data-alt="Expanded Pacman Nebula comparison image made with standard autofocus">
+<img src="assets/pacman-standard-color.png" alt="Pacman Nebula with standard autofocus">
+</button>
+<figcaption><strong>Standard autofocus</strong><span>One compromise focus · 30 min</span></figcaption>
+</figure>
+<figure class="result-card featured-result">
+<button class="image-button" type="button" data-src="assets/pacman-vfs-color.png" data-alt="Expanded Pacman Nebula comparison image made with VFS focus offsets">
+<img src="assets/pacman-vfs-color.png" alt="Pacman Nebula with separate VFS focus offsets">
+</button>
+<figcaption><strong>With VFS</strong><span>Separate Ha and OIII focus · 30 min</span></figcaption>
+</figure>
+</div>
+<div class="channel-results">
+<article class="channel-result ha-result">
+<div class="channel-result-heading"><div><span class="channel-tag">Ha / red</span><h4>4.21 → 2.05 px</h4></div><strong class="improvement">51% lower FWHM</strong></div>
+<div class="result-pair channel-result-pair">
+<figure><img class="channel-image" src="assets/pacman-standard-ha.png" alt="Ha channel without VFS, FWHM 4.21 pixels"><figcaption>Standard autofocus <b>4.21 px</b></figcaption></figure>
+<figure><img class="channel-image" src="assets/pacman-vfs-ha.png" alt="Ha channel with VFS, FWHM 2.05 pixels"><figcaption>With VFS <b>2.05 px</b></figcaption></figure>
+</div>
+</article>
+<article class="channel-result oiii-result">
+<div class="channel-result-heading"><div><span class="channel-tag">OIII / green</span><h4>2.28 → 1.89 px</h4></div><strong class="improvement">17% lower FWHM</strong></div>
+<div class="result-pair channel-result-pair">
+<figure><img class="channel-image" src="assets/pacman-standard-oiii.png" alt="OIII channel without VFS, FWHM 2.28 pixels"><figcaption>Standard autofocus <b>2.28 px</b></figcaption></figure>
+<figure><img class="channel-image" src="assets/pacman-vfs-oiii.png" alt="OIII channel with VFS, FWHM 1.89 pixels"><figcaption>With VFS <b>1.89 px</b></figcaption></figure>
+</div>
+</article>
+</div>
+<aside class="result-summary"><strong>Measured in this test:</strong> VFS reduced stellar FWHM from 4.21 to 2.05 px in Ha and from 2.28 to 1.89 px in OIII.</aside>
+<p class="result-caveat">Results from one f/4 optical setup. FWHM was measured in Siril after the same registration, drizzle, and stacking workflow. Results will vary with optics, seeing, guiding, focus separation, and processing.</p>
+</section>
 <div class="cards three observation-steps">
 <article>
 <i>01</i>
