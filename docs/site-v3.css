@@ -89,6 +89,7 @@ details{margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-ra
 summary{color:var(--cyan);cursor:pointer;font-weight:700}
 .details-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:24px;align-items:center;margin-top:16px}
 .scope{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.process-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.process-flow article{min-height:250px;padding:22px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,rgba(16,34,56,.88),rgba(7,19,33,.9))}.process-flow article.accent{border-color:rgba(92,231,209,.4)}.process-flow i{display:block;margin-bottom:32px}.process-flow p,.process-output li{color:var(--muted)}pre{margin:20px 0 0;padding:15px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:#030b14;font-size:13px;line-height:1.5}.process-output{display:grid;grid-template-columns:1.1fr .9fr;gap:15px;align-items:stretch;margin-top:15px}.process-output>div{padding:20px;border:1px solid var(--line);border-radius:14px;background:rgba(11,25,41,.7)}.process-output h3{margin-bottom:12px}.process-output ul{margin:0;padding-left:20px}.process-output aside{margin:0;display:flex;align-items:center}
 .cta{margin-top:56px;padding:56px clamp(27px,7vw,80px);border:1px solid rgba(92,231,209,.3);border-radius:19px;background:radial-gradient(circle at 80% 20%,rgba(92,231,209,.1),transparent 35%),var(--surface)}
 .cta>p:not(.eye){color:var(--muted)}
 footer{display:flex;justify-content:space-between;gap:30px;margin-top:56px;padding:30px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
@@ -113,6 +114,7 @@ header nav.open{display:flex}
 .requirements{grid-template-columns:repeat(2,1fr)}
 .install{grid-template-columns:1fr 1fr}
 .setup article,.setup article:nth-child(even),.plan-grid,.details-grid{grid-template-columns:1fr}
+.process-flow{grid-template-columns:1fr}.process-flow article{min-height:0}.process-output{grid-template-columns:1fr}
 .setup article:nth-child(even)>div{order:0}
 }
 

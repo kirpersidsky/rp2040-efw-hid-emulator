@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview-v7-front-wheel.png">
 <meta name="twitter:image:alt" content="Front-facing holographic filter wheel with three virtual slots for ASIAIR">
 <title>VFS — Virtual Filter Slots</title>
-<link rel="stylesheet" href="site-v3.css?v=6">
+<link rel="stylesheet" href="site-v3.css?v=7">
 <script src="site.js?v=4" defer>
 </script>
 </head>
@@ -36,6 +36,7 @@
 <a href="#how">How it works</a>
 <a href="#install">Install</a>
 <a href="#configure">Configure</a>
+<a href="#process">Process</a>
 <a href="#limits">Limitations</a>
 <a href="#questions">Common questions</a>
 <a href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator">GitHub</a>
@@ -423,6 +424,33 @@
 </button>
 </div>
 </details>
+</section>
+<section class="section shell" id="process">
+<div class="heading">
+<p class="eye">Siril processing script</p>
+<h2>Turn a VFS session into separate Ha, OIII, and ready-made HOO stacks.</h2>
+<p>The optional Siril script reads the virtual filter name stored in each FITS header, sorts the lights by focus position, and processes both groups automatically.</p>
+</div>
+<div class="process-flow">
+<article><i>01</i><h3>Prepare one folder</h3><p>Place the original FITS lights in a <code>lights</code> folder. Keep both <code>FILTER='H'</code> and <code>FILTER='O'</code> frames together.</p><pre><code>session/
+└── lights/
+    ├── ...H...fit
+    └── ...O...fit</code></pre></article>
+<article><i>02</i><h3>Run it in Siril</h3><p>Install the Python script in Siril, launch it, and choose the parent <code>session</code> folder. Your original files are left untouched.</p></article>
+<article class="accent"><i>03</i><h3>Collect the results</h3><p>The script extracts, registers, drizzles, stacks, aligns, and normalizes the channels, then creates a HOO image with <code>R=Ha</code> and <code>G=B=OIII</code>.</p></article>
+</div>
+<div class="process-output">
+<div><h3>Output from each run</h3><ul>
+<li><code>result_Ha_3000s.fit</code> — monochrome Ha master</li>
+<li><code>result_OIII_3000s.fit</code> — monochrome OIII master</li>
+<li><code>result_HOO_Ha3000s_OIII3000s.fit</code> — three-channel HOO image</li>
+</ul></div>
+<aside class="warning"><strong>Current version is intentionally simple:</strong>&nbsp; it does not apply dark, flat, or bias calibration.</aside>
+</div>
+<div class="actions">
+<a class="button primary" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/blob/main/siril/VFS_Extract_HaOIII_Drizzle.py">Download the Siril script</a>
+<a class="button" href="https://github.com/kirpersidsky/rp2040-efw-hid-emulator/tree/main/siril#readme">Read the full instructions</a>
+</div>
 </section>
 <section class="section shell" id="limits">
 <div class="heading">

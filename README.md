@@ -181,6 +181,22 @@ immediately after it.
 Treat the displayed duration as an estimate and leave some margin for slewing,
 settling, dithering, downloads, and the autofocus procedure itself.
 
+## Optional Siril processing script
+
+The [`siril/`](siril/) directory contains an experimental Siril 1.4.4+ Python
+script for VFS sessions. It reads the `FILTER` value in the original FITS
+headers, separates the `H`-focus and `O`-focus frames, extracts Ha and OIII,
+performs two-pass registration and drizzle, stacks and aligns both channels,
+and creates:
+
+- a monochrome Ha master;
+- a monochrome OIII master normalized to Ha;
+- a ready-made HOO image with `R=Ha`, `G=OIII`, and `B=OIII`.
+
+This first version does not apply dark, flat, or bias calibration. See the
+[Siril script instructions](siril/README.md) for installation, input layout,
+processing details, and output filenames.
+
 ## How the protocol work was done
 
 The project deliberately does not invent protocol commands. Each public
