@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://kirpersidsky.github.io/rp2040-efw-hid-emulator/assets/social-preview-v7-front-wheel.png">
 <meta name="twitter:image:alt" content="Front-facing holographic filter wheel with three virtual slots for ASIAIR">
 <title>VFS — Virtual Filter Slots</title>
-<link rel="stylesheet" href="site-v3.css?v=7">
+<link rel="stylesheet" href="site-v3.css?v=8">
 <script src="site.js?v=4" defer>
 </script>
 </head>
@@ -114,6 +114,27 @@
 <strong>Measure your own setup:</strong> repeat the test several times before choosing an offset.</aside>
 </div>
 <aside>The difference depends on the complete optical setup. VFS does not assume that every system needs the same offset—or any offset at all.</aside>
+<section class="focus-curves" aria-labelledby="focus-curves-title">
+<div class="results-heading">
+<p class="eye">Measured focus curves</p>
+<h3 id="focus-curves-title">Two repeatable minima, about 140 EAF steps apart.</h3>
+<p>FWHM was measured from EAF position 29700 to 30140 in 20-step intervals. Each point is a stack of ten 5-second exposures made at the same focuser position.</p>
+</div>
+<figure class="focus-curve-figure">
+<button class="image-button" type="button" data-src="assets/focus-curves-measured.svg" data-alt="Expanded graph of measured Ha and OIII FWHM versus ZWO EAF position">
+<img src="assets/focus-curves-measured.svg" alt="Measured Ha and OIII focus curves with best focus near EAF 29840 and 29980">
+</button>
+<figcaption>Measured points with local quadratic fits. Lower FWHM means tighter stars.</figcaption>
+</figure>
+<div class="focus-metrics">
+<article class="ha"><small>Ha / red</small><strong>≈ 29840</strong><span>fitted best focus</span></article>
+<article class="oiii"><small>OIII / green</small><strong>≈ 29980</strong><span>fitted best focus</span></article>
+<article><small>Separation</small><strong>≈ 140</strong><span>ZWO EAF steps</span></article>
+<article><small>Per position</small><strong>10 × 5 s</strong><span>23 measured positions</span></article>
+</div>
+<p class="focus-method">The stacks used 1× drizzle with no intentional dithering because guiding was disabled. The same processing was applied to every position, so the curves remain directly comparable. At 1× scale, drizzle does not provide a super-resolution claim here.</p>
+<div class="data-links"><a href="assets/focus-fwhm-red-measured.csv" download>Download Ha measurements (.csv)</a><a href="assets/focus-fwhm-green-measured.csv" download>Download OIII measurements (.csv)</a></div>
+</section>
 <section class="results-comparison" aria-labelledby="results-comparison-title">
 <div class="results-heading">
 <p class="eye">Real-world comparison</p>
