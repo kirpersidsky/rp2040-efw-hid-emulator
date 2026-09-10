@@ -248,6 +248,7 @@ footer nav{flex-wrap:wrap}
 .step-icon text{fill:var(--cyan);stroke:none;font:700 22px monospace}
 .step-icon text.slot-number{font-size:13px}
 .measurement{margin-top:64px;padding:42px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(150deg,rgba(13,31,51,.84),rgba(5,15,27,.92))}
+.observation .heading + .measurement{margin-top:0}
 .measurement-heading{max-width:760px;margin-bottom:26px}
 .measurement-heading h3{font-size:clamp(27px,3vw,38px)}
 .measurement-heading p:last-child,.sample-note{color:var(--muted)}
@@ -255,6 +256,12 @@ footer nav{flex-wrap:wrap}
 .focus-samples figure{background:#020812}
 .focus-samples img{display:block;width:100%;height:auto}
 .sample-note{max-width:900px;margin:20px 0 34px}
+.optical-explanation{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:28px;align-items:center;margin-top:32px}
+.optical-explanation-copy h3{margin-bottom:14px;font-size:clamp(24px,2.5vw,34px)}
+.optical-explanation-copy>p:last-child{margin-bottom:0;color:var(--muted)}
+.optical-explanation .observation-visual{margin:0}
+.evidence-section .focus-curves,.comparison-section .results-comparison{margin:0}
+.comparison-section .observation-steps{margin-top:32px}
 .measurement + .observation-steps,
 .measurement + aside + .observation-steps{margin-top:32px}
 .results-comparison{margin-top:64px;padding:42px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(150deg,rgba(13,31,51,.86),rgba(5,15,27,.95))}
@@ -280,6 +287,8 @@ footer nav{flex-wrap:wrap}
 .facts{grid-column:1;grid-row:6}
 .measurement{padding:32px}
 .results-comparison{padding:32px}.channel-results{grid-template-columns:1fr}
+.optical-explanation{grid-template-columns:1fr;gap:20px}
+.optical-explanation-copy{grid-row:1}
 .component-requirements{grid-template-columns:repeat(2,1fr)}
 }
 

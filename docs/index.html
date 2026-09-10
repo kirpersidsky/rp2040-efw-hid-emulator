@@ -80,18 +80,11 @@
 <p class="eye">The observation</p>
 <h2>Ha and OIII may need slightly different focus positions.</h2>
 <p>In the tested setup, the red and green parts of the image were sharp at different ZWO EAF positions. ASIAIR autofocus settled on a compromise between them—closer to the OIII/green focus in this test—rather than placing both channels at their individual best focus.</p>
-<p>This can happen because the telescope, reducer, corrector, and other glass in the optical path do not treat every wavelength in exactly the same way. Fast systems have a very narrow range of good focus, so even a small difference can become visible.</p>
 </div>
-<figure class="observation-visual">
-<button class="image-button" type="button" data-src="assets/optical-train-ha-oiii-focus-final.png" data-alt="Expanded conceptual optical train showing separate Ha and OIII focus positions">
-<img src="assets/optical-train-ha-oiii-focus-final.png" alt="Conceptual optical train with one fixed dual-band filter and separate Ha and OIII focus positions">
-</button>
-<figcaption>Conceptual illustration. Focus separation is exaggerated for clarity.</figcaption>
-</figure>
 <div class="measurement">
 <div class="measurement-heading">
 <p class="eye">Bahtinov mask observation</p>
-<h3>Each color channel becomes sharp at a different focuser position.</h3>
+<h3>The mask makes the focus difference visible.</h3>
 <p>These two 3-second exposures were taken at f/4 and 140 EAF steps apart. ASIAIR autofocus selected position 30120—a compromise between the two channel-specific focus positions. In one image the green pattern is centered; in the other, the red pattern is centered. On an even faster system, a small focus difference may be easier to see because the range of good focus is narrower.</p>
 </div>
 <div class="focus-samples">
@@ -113,8 +106,23 @@
 <aside class="warning">
 <strong>Measure your own setup:</strong> repeat the test several times before choosing an offset.</aside>
 </div>
+<div class="optical-explanation">
+<figure class="observation-visual">
+<button class="image-button" type="button" data-src="assets/optical-train-ha-oiii-focus-final.png" data-alt="Expanded conceptual optical train showing separate Ha and OIII focus positions">
+<img src="assets/optical-train-ha-oiii-focus-final.png" alt="Conceptual optical train with one fixed dual-band filter and separate Ha and OIII focus positions">
+</button>
+<figcaption>Conceptual illustration. Focus separation is exaggerated for clarity.</figcaption>
+</figure>
+<div class="optical-explanation-copy">
+<p class="eye">Why this can happen</p>
+<h3>The complete optical train shapes where each wavelength focuses.</h3>
+<p>The telescope, reducer, corrector, and other glass in the optical path do not treat every wavelength in exactly the same way. Fast systems have a narrow range of good focus, so even a small difference can become visible.</p>
+</div>
+</div>
 <aside>The difference depends on the complete optical setup. VFS does not assume that every system needs the same offset—or any offset at all.</aside>
-<section class="focus-curves" aria-labelledby="focus-curves-title">
+</section>
+<section class="section shell evidence-section" aria-labelledby="focus-curves-title">
+<div class="focus-curves">
 <div class="results-heading">
 <p class="eye">Measured focus curves</p>
 <h3 id="focus-curves-title">Two repeatable minima, about 140 EAF steps apart.</h3>
@@ -135,8 +143,10 @@
 <aside><strong>Why these EAF numbers differ from the Bahtinov screenshots:</strong> after the screenshots were taken, the focuser’s displayed position was reassigned with <strong>Set focuser position</strong>. That changed the coordinate labels, not the physical focus points. Both channels shifted by the same amount, so 30020/30160 in the screenshots correspond to approximately 29840/29980 on this later scale.</aside>
 <p class="focus-method">The stacks used 1× drizzle with no intentional dithering because guiding was disabled. The same processing was applied to every position, so the curves remain directly comparable. At 1× scale, drizzle does not provide a super-resolution claim here.</p>
 <div class="data-links"><a href="assets/focus-fwhm-red-measured.csv" download>Download Ha measurements (.csv)</a><a href="assets/focus-fwhm-green-measured.csv" download>Download OIII measurements (.csv)</a></div>
+</div>
 </section>
-<section class="results-comparison" aria-labelledby="results-comparison-title">
+<section class="section shell comparison-section" aria-labelledby="results-comparison-title">
+<div class="results-comparison">
 <div class="results-heading">
 <p class="eye">Real-world comparison</p>
 <h3 id="results-comparison-title">Same target. Same integration time. Separate focus for each band.</h3>
@@ -175,7 +185,7 @@
 <aside class="result-summary"><strong>Measured in this test:</strong> VFS reduced stellar FWHM from 4.226 to 1.902 px in Ha and from 2.578 to 1.923 px in OIII.</aside>
 <p class="result-setup"><strong>Test setup:</strong> 2.90 µm pixels · 129.43 mm focal length · f/4 · 4.622 arcsec/px image scale. In angular terms, Ha improved from 19.53″ to 8.79″ and OIII from 11.92″ to 8.89″.</p>
 <p class="result-caveat">Small pixels sample the image more finely, but the visibility of a focus difference depends on the complete combination of pixel size, focal length, focal ratio, optics, and seeing. These results come from one f/4 setup; FWHM was measured in Siril after the same registration, drizzle, and stacking workflow.</p>
-</section>
+</div>
 <div class="cards three observation-steps">
 <article>
 <i>01</i>
