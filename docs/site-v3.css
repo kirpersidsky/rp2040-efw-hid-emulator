@@ -261,7 +261,15 @@ footer nav{flex-wrap:wrap}
 .optical-explanation-copy>p:last-child{margin-bottom:0;color:var(--muted)}
 .optical-explanation .observation-visual{margin:0}
 .evidence-section .focus-curves,.comparison-section .results-comparison{margin:0}
-.comparison-section .observation-steps{margin-top:32px}
+.how-stage{margin-top:56px;padding-top:48px;border-top:1px solid var(--line)}
+.system-flow-heading{margin:0 0 22px}
+.system-flow-heading h3{margin:0;font-size:clamp(23px,2.6vw,32px)}
+#how>.heading{margin-bottom:38px}
+#how{padding-bottom:56px}
+#how .slots-heading{margin:0 0 28px}
+#how .slots article{min-height:0;padding:17px 20px}
+#how .slots h3{margin:17px 0 6px}
+#how .slots-note{margin:18px 2px 0;color:var(--muted)}
 .measurement + .observation-steps,
 .measurement + aside + .observation-steps{margin-top:32px}
 .results-comparison{margin-top:64px;padding:42px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(150deg,rgba(13,31,51,.86),rgba(5,15,27,.95))}

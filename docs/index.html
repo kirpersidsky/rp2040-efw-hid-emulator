@@ -186,6 +186,13 @@
 <p class="result-setup"><strong>Test setup:</strong> 2.90 µm pixels · 129.43 mm focal length · f/4 · 4.622 arcsec/px image scale. In angular terms, Ha improved from 19.53″ to 8.79″ and OIII from 11.92″ to 8.89″.</p>
 <p class="result-caveat">Small pixels sample the image more finely, but the visibility of a focus difference depends on the complete combination of pixel size, focal length, focal ratio, optics, and seeing. These results come from one f/4 setup; FWHM was measured in Siril after the same registration, drizzle, and stacking workflow.</p>
 </div>
+</section>
+<section class="section shell" id="how">
+<div class="heading">
+<p class="eye">How it works</p>
+<h2>Measure once. Let ASIAIR handle the focus changes.</h2>
+<p>VFS turns your measured focus difference into virtual slots that ASIAIR can use automatically.</p>
+</div>
 <div class="cards three observation-steps">
 <article>
 <i>01</i>
@@ -220,12 +227,10 @@
 <p>The Pico provides three virtual slots. The physical filter never moves.</p>
 </article>
 </div>
-</section>
-<section class="section shell" id="how">
-<div class="heading">
-<p class="eye">How it works</p>
-<h2>The Pico changes the virtual slot. ASIAIR moves the focuser.</h2>
-<p>Choose Reference, Ha, or OIII. ASIAIR reads the saved offset and moves the real ZWO EAF.</p>
+<div class="how-stage system-stage">
+<div class="system-flow-heading">
+<p class="eye">Inside the workflow</p>
+<h3>What happens when ASIAIR selects a virtual slot.</h3>
 </div>
 <div class="flow component-flow">
 <article>
@@ -266,9 +271,10 @@
 </div>
 <aside class="warning">
 <strong>The Pico does not move the focuser.</strong> ASIAIR controls the real ZWO EAF.</aside>
+</div>
+<div class="how-stage slot-stage">
 <div class="slots-heading">
 <h3>Three virtual slots for three saved focus positions.</h3>
-<p>Only the slot name and focus offset change. The same physical filter stays installed.</p>
 </div>
 <div class="cards three slots">
 <article>
@@ -286,6 +292,8 @@
 <h3>OIII</h3>
 <p>User-measured OIII offset</p>
 </article>
+</div>
+<p class="slots-note">Only the slot name and focus offset change. The same physical filter stays installed.</p>
 </div>
 </section>
 <section class="section shell requirements-section">
